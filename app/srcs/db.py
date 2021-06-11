@@ -6,7 +6,7 @@ from sqlalchemy.engine.reflection import Inspector
 
 
 #engine = create_engine("sqlite:///./database.db", echo=True)
-engine = create_engine("postgresql://user:pass@192.168.99.105:5432/user", echo=True)
+engine = create_engine("postgresql://user:pass@postgres.aviasales_app-network:5432/user", echo=True)
 
 Session = sessionmaker()
 Session.configure(bind=engine)

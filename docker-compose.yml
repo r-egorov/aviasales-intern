@@ -1,0 +1,30 @@
+version: '3'
+services:
+    postgres:
+        container_name: postgres
+        image: postgres
+        restart: unless-stopped
+        environment:
+            - POSTGRES_PASSWORD=pass
+            - POSTGRES_USER=user
+        expose:
+            - "5432"
+        networks:
+            - app-network
+
+    uwsgi:
+        container_name: uwsgi-nginx
+        restart: unless-stopped
+        depends_on: 
+            - postgres
+        build:
+            context: ./app/
+        image: uwsgi-nginx
+        ports:
+            - 80:80
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
