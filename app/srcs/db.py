@@ -21,6 +21,9 @@ if not PG_HOST:
 NETWORK = os.getenv("NETWORK")
 if not NETWORK:
     NETWORK = "aviasales_app-network"
+CSV_FILE = os.getenv("CSV_FILE")
+if not CSV_FILE:
+    CSV_FILE = "flights.csv"
 
 db_url = f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}.{NETWORK}:5432/{PG_DB}"
 engine = create_engine(db_url, echo=True) #FIXME
@@ -55,4 +58,4 @@ inspector = Inspector.from_engine(engine)
 
 if "flights" not in inspector.get_table_names():
     Flight.metadata.create_all(engine, checkfirst=True)
-    import_csv("flights.csv")
+    import_csv(CSV_FILE)
