@@ -56,8 +56,3 @@ inspector = Inspector.from_engine(engine)
 if "flights" not in inspector.get_table_names():
     Flight.metadata.create_all(engine, checkfirst=True)
     import_csv("flights.csv")
-
-
-if __name__ == "__main__":
-    flight = session.query(Flight).filter_by(id=4).first()
-    print(flight)
