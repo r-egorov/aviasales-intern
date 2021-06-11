@@ -26,7 +26,7 @@ if not CSV_FILE:
     CSV_FILE = "flights.csv"
 
 db_url = f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}.{NETWORK}:5432/{PG_DB}"
-engine = create_engine(db_url, echo=True) #FIXME
+engine = create_engine(db_url, echo=False)
 
 Session = sessionmaker()
 Session.configure(bind=engine)
