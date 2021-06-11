@@ -50,7 +50,8 @@ def import_csv(csv_path: str):
                             arrival_date=row[5],
                             arrival_time=row[6],
                             number=row[7])
-            session.add(flight)
+            if not session.query(Flight.id).filter_by(id=flight.id).scalar():
+                session.add(flight)
         session.commit()
 
 
@@ -58,4 +59,5 @@ inspector = Inspector.from_engine(engine)
 
 if "flights" not in inspector.get_table_names():
     Flight.metadata.create_all(engine, checkfirst=True)
-    import_csv(CSV_FILE)
+
+import_csv(CSV_FILE)
