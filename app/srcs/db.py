@@ -1,12 +1,29 @@
 import csv
+import os
 from flight_class import Flight
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from sqlalchemy.engine.reflection import Inspector
 
 
-#engine = create_engine("sqlite:///./database.db", echo=True)
-engine = create_engine("postgresql://user:pass@postgres.aviasales_app-network:5432/user", echo=True)
+PG_USER = os.getenv("POSTGRES_USER")
+if not PG_USER:
+    PG_USER = "user"
+PG_PASS = os.getenv("POSTGRES_PASSWORD")
+if not PG_PASS:
+    PG_PASS = "pass"
+PG_DB = os.getenv("POSTGRES_DB")
+if not PG_DB:
+    PG_DB = "user"
+PG_HOST = os.getenv("POSTGRES_HOST")
+if not PG_HOST:
+    PG_HOST = "postgres"
+NETWORK = os.getenv("NETWORK")
+if not NETWORK:
+    NETWORK = "aviasales_app-network"
+
+db_url = f"postgresql://{PG_USER}:{PG_PASS}@{PG_HOST}.{NETWORK}:5432/{PG_DB}"
+engine = create_engine(db_url, echo=True) #FIXME
 
 Session = sessionmaker()
 Session.configure(bind=engine)
