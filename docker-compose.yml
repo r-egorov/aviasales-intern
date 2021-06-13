@@ -13,7 +13,7 @@ services:
         networks:
             - app-network
         volumes:
-            - ./postgres:/var/lib/postgresql
+            - ./postgres:/var/lib/postgresql/data
 
     uwsgi:
         container_name: uwsgi-nginx
